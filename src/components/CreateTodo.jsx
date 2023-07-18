@@ -43,7 +43,7 @@ function CreateTodo() {
       <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
       <label>
         completed &nbsp;
-        <input type="checkbox" onChange={(e) => setCompleted(e.target.checked)} />
+        <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
       </label>
       <br />
       {isSubmitting ?
