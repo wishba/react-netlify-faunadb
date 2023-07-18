@@ -1,14 +1,15 @@
 import netlifyIdentity from 'netlify-identity-widget';
+import { useState } from 'react';
 
 function App() {
   netlifyIdentity.init()
 
+  const [title, setTitle] = useState('')
+  const [completed, setCompleted] = useState(false)
+  const userId = netlifyIdentity.currentUser().id;
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    const userId = netlifyIdentity.currentUser().id;
-    const title = 'Build an awesome app!';
-    const completed = false;
 
     const response = await fetch('/.netlify/functions/createTodo', {
       method: 'POST',
@@ -19,7 +20,9 @@ function App() {
     })
 
     if (response.ok) {
-      console.log('Create a new todo is successful');
+      console.log('Success to create a new todo item');
+      setTitle('')
+      setCompleted(false)
     } else {
       console.error('Failed to create a new todo item.');
     }
@@ -38,14 +41,12 @@ function App() {
       </header>
 
       <main className='container'>
-        <button onClick={handleSubmit}>tes</button>
-
-        <form action="">
-          <label htmlFor="">todo</label>
-          <input type="text" name="" id="" />
-          <label htmlFor="">
+        <form onSubmit={handleSubmit}>
+          <label>todo</label>
+          <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
+          <label>
             completed &nbsp;
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" onChange={(e) => setCompleted(e.target.checked)} />
           </label>
           <br />
           <input type="submit" value="submit" />
