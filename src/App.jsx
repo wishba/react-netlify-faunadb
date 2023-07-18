@@ -8,8 +8,12 @@ function App() {
   const [completed, setCompleted] = useState(false)
   const userId = netlifyIdentity.currentUser().id;
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    setIsSubmitting(true)
 
     const response = await fetch('/.netlify/functions/createTodo', {
       method: 'POST',
@@ -23,6 +27,7 @@ function App() {
       console.log('Success to create a new todo item');
       setTitle('')
       setCompleted(false)
+      setIsSubmitting(false)
     } else {
       console.error('Failed to create a new todo item.');
     }
@@ -49,7 +54,11 @@ function App() {
             <input type="checkbox" onChange={(e) => setCompleted(e.target.checked)} />
           </label>
           <br />
-          <input type="submit" value="submit" />
+          {isSubmitting ?
+            <input type="submit" value="submitting..." disabled />
+            :
+            <input type="submit" value="submit" />
+          }
         </form>
       </main>
     </>
