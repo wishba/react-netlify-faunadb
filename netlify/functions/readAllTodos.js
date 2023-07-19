@@ -9,6 +9,7 @@ exports.handler = async (event, context) => {
         userId: "${userId}"
       ) {
         data {
+          _id
           userId
           title
           completed

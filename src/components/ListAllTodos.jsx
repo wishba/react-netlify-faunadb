@@ -29,10 +29,10 @@ function ListAllTodos() {
 
   return (
     <ul>
-      {todos.map((todo, index) => (
-        <li key={index}>
-          <strong>Title:</strong> {todo.title}<br />
-          <strong>Completed:</strong> {todo.completed ? 'Yes' : 'No'}<br />
+      {todos.map((todo) => (
+        <li key={todo._id}>
+          <p>Title: {todo.title}</p>
+          <p>Completed: {todo.completed ? 'Yes' : 'No'}</p>
         </li>
       ))}
     </ul>
