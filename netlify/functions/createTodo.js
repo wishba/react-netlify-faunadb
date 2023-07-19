@@ -1,7 +1,7 @@
 const { default: fetch } = require("node-fetch")
 
 exports.handler = async (event, context) => {
-  const { userId, title, completed } = JSON.parse(event.body);
+  const { userId, title, completed } = JSON.parse(event.body)
 
   const query = `
     mutation CreateTodo {
