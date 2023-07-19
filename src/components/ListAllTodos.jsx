@@ -8,9 +8,9 @@ function ListAllTodos() {
     getAllTodos()
   }, [])
 
-  const userId = netlifyIdentity.currentUser().id
-
   const getAllTodos = async () => {
+    const userId = netlifyIdentity.currentUser().id
+
     const response = await fetch('/.netlify/functions/readAllTodos', {
       method: 'POST',
       headers: {
@@ -27,12 +27,34 @@ function ListAllTodos() {
     }
   }
 
+  const handleDeleteTodo = async (id) => {
+    console.log(id);
+
+    const response = await fetch('/.netlify/functions/deleteTodo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+
+    if (response.ok) {
+      console.log('Successfully deleted todo list');
+    } else {
+      console.error('Failed to delete todo list.')
+    }
+  }
+
   return (
     <ul>
       {todos.map((todo) => (
         <li key={todo._id}>
           <p>Title: {todo.title}</p>
           <p>Completed: {todo.completed ? 'Yes' : 'No'}</p>
+          <a href="#" onClick={(e) => {
+            e.preventDefault()
+            handleDeleteTodo(todo._id)
+          }}>delete</a>
         </li>
       ))}
     </ul>
