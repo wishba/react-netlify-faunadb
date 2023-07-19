@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
-import netlifyIdentity from 'netlify-identity-widget';
+import netlifyIdentity from 'netlify-identity-widget'
 
-function CreateTodo() {
-  netlifyIdentity.init()
-
+function TodoForm() {
   const [title, setTitle] = useState('')
   const [completed, setCompleted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   let userId = ''
   if (netlifyIdentity.currentUser() !== null) {
-    userId = netlifyIdentity.currentUser().id;
+    userId = netlifyIdentity.currentUser().id
   }
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,12 +25,12 @@ function CreateTodo() {
     })
 
     if (response.ok) {
-      console.log('Success to create a new todo item');
+      console.log('Success to create a new todo item')
       setTitle('')
       setCompleted(false)
       setIsSubmitting(false)
     } else {
-      console.error('Failed to create a new todo item.');
+      console.error('Failed to create a new todo item.')
     }
   }
 
@@ -55,4 +52,4 @@ function CreateTodo() {
   )
 }
 
-export default CreateTodo
+export default TodoForm
