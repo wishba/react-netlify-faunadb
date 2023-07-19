@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import netlifyIdentity from 'netlify-identity-widget';
+import netlifyIdentity from 'netlify-identity-widget'
 
 function Nav() {
-  netlifyIdentity.init()
-
   const [button, setButton] = useState('Login')
+
   useEffect(() => {
     if (netlifyIdentity.currentUser() !== null) {
       setButton('Logout')

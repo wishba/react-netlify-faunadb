@@ -1,7 +1,11 @@
+import ListAllTodos from './components/ListAllTodos';
 import Nav from './components/Nav';
-import CreateTodo from './components/CreateTodo';
+import netlifyIdentity from 'netlify-identity-widget';
+import TodoForm from './components/todoForm';
 
 function App() {
+  netlifyIdentity.init()
+
   return (
     <>
       <header className='container-fluid'>
@@ -9,7 +13,8 @@ function App() {
       </header>
 
       <main className='container'>
-        <CreateTodo />
+        <TodoForm />
+        <ListAllTodos />
       </main>
     </>
   )
