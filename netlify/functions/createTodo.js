@@ -12,6 +12,7 @@ exports.handler = async (event, context) => {
           completed: ${completed}
         }
       ) {
+        _id
         userId
         title
         completed
