@@ -48,7 +48,7 @@ function ListAllTodos() {
 
   return (
     <ul>
-      {todos.map((todo) => (
+      {todos.slice().reverse().map((todo) => (
         <li key={todo._id}>
           <p>Title: {todo.title}</p>
           <p>Completed: {todo.completed ? 'Yes' : 'No'}</p>
