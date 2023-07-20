@@ -39,7 +39,8 @@ function ListAllTodos() {
     })
 
     if (response.ok) {
-      console.log('Successfully deleted todo list');
+      const filteredTodos = todos.filter((todo) => todo._id !== id)
+      setTodos(filteredTodos)
     } else {
       console.error('Failed to delete todo list.')
     }
