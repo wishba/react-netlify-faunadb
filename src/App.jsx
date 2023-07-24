@@ -114,7 +114,7 @@ function App() {
         </form>
 
         <ul>
-          {todos.slice().reverse().map((todo) => (
+          {todos.slice().sort((a, b) => b.timeStamp - a.timeStamp).map((todo) => (
             <li key={todo._id}>
               <p>Title: {todo.title}</p>
               <p>Completed: {todo.completed ? 'Yes' : 'No'}</p>
