@@ -8,13 +8,8 @@ function App() {
   const [todos, setTodos] = useState([])
 
   const [userId, setUserId] = useState('')
-  const [todoId, setTodoId] = useState('')
   const [title, setTitle] = useState('')
   const [completed, setCompleted] = useState(false)
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isUpdateButton, setIsUpdateButton] = useState(false)
-  const [isUpdating, setIsUpdating] = useState(false)
 
   useEffect(() => {
     getAllTodos()
@@ -44,27 +39,15 @@ function App() {
   }
 
   const handleSubmitTodo = async () => {
-    // setIsSubmitting(true)
-    const timeStamp = Date.now()
-
     const response = await fetch('/.netlify/functions/createTodo', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ timeStamp, userId, title, completed }),
+      body: JSON.stringify({ userId, title, completed }),
     })
 
     if (response.ok) {
-      // setTitle('')
-      // setCompleted(false)
-      // setIsSubmitting(false)
-      // setTodos([...todos, {
-      //   _id: (await response.json()).data.createTodo._id,
-      //   userId: userId,
-      //   title: title,
-      //   completed: completed,
-      // }])
       console.log('Success to create a new todo item.')
       const data = await response.json()
       console.log(data);
@@ -83,8 +66,6 @@ function App() {
     })
 
     if (response.ok) {
-      // const filteredTodos = todos.filter((todo) => todo._id !== id)
-      // setTodos(filteredTodos)
       console.log('Success to delete todo list.')
       const data = await response.json()
       console.log(data);
@@ -94,19 +75,15 @@ function App() {
   }
 
   const handleUpdateTodo = async (todoId) => {
-    const timeStamp = Date.now()
-
     const response = await fetch('/.netlify/functions/updateTodo', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ todoId, timeStamp, userId, title, completed }),
+      body: JSON.stringify({ todoId, userId, title, completed }),
     })
 
     if (response.ok) {
-      // const filteredTodos = todos.filter((todo) => todo._id !== id)
-      // setTodos(filteredTodos)
       console.log('Success to update todo list.')
       const data = await response.json()
       console.log(data);
@@ -145,16 +122,6 @@ function App() {
                 e.preventDefault()
                 handleDeleteTodo(todo._id)
               }}>delete</a>
-              &nbsp;&nbsp;
-              <a href="#" onClick={() => {
-                // e.preventDefault()
-                // handleDeleteTodo(todo._id)
-                console.log(todo.title + ' ' + todo.completed + ' ' + todo._id)
-                setTodoId(todo._id)
-                setTitle(todo.title)
-                setCompleted(todo.completed)
-                // setIsUpdateButton(true)
-              }}>update</a>
 
               <br /><br />
               <form>
