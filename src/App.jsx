@@ -92,6 +92,14 @@ function App() {
     }
   }
 
+  const handleUpdateButton = (todoId) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo._id === todoId ? { ...todo, showForm: !todo.showForm } : todo
+      )
+    );
+  };
+
   return (
     <>
       <header className='container-fluid'>
@@ -106,7 +114,6 @@ function App() {
             completed &nbsp;
             <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
           </label>
-          <br />
           <input type="submit" value="submit" onClick={(e) => {
             e.preventDefault()
             handleSubmitTodo()
@@ -123,18 +130,25 @@ function App() {
                 handleDeleteTodo(todo._id)
               }}>delete</a>
 
-              <br /><br />
-              <form>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <label>completed &nbsp;
-                  <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
-                </label>
-                <br />
-                <input type="submit" value="update" onClick={(e) => {
-                  e.preventDefault()
-                  handleUpdateTodo(todo._id)
-                }} />
-              </form>
+              <span> | </span>
+
+              <a href="#" onClick={(e) => {
+                e.preventDefault()
+                handleUpdateButton(todo._id)
+              }}>{todo.showForm ? 'cancel update' : 'update'}</a>
+
+              {todo.showForm && (
+                <form>
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <label>completed &nbsp;
+                    <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
+                  </label>
+                  <input type="submit" value="update" onClick={(e) => {
+                    e.preventDefault()
+                    handleUpdateTodo(todo._id)
+                  }} />
+                </form>
+              )}
             </li>
           ))}
         </ul>
