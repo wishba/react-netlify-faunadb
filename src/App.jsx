@@ -11,6 +11,8 @@ function App() {
   const [title, setTitle] = useState('')
   const [completed, setCompleted] = useState(false)
 
+  const [updateFormVisibility, setUpdateFormVisibility] = useState({})
+
   useEffect(() => {
     getAllTodos()
 
@@ -93,12 +95,11 @@ function App() {
   }
 
   const handleUpdateButton = (todoId) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo._id === todoId ? { ...todo, showForm: !todo.showForm } : todo
-      )
-    );
-  };
+    setUpdateFormVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [todoId]: !prevVisibility[todoId],
+    }))
+  }
 
   return (
     <>
@@ -135,9 +136,9 @@ function App() {
               <a href="#" onClick={(e) => {
                 e.preventDefault()
                 handleUpdateButton(todo._id)
-              }}>{todo.showForm ? 'cancel update' : 'update'}</a>
+              }}>{updateFormVisibility[todo._id] ? 'cancel update' : 'update'}</a>
 
-              {todo.showForm && (
+              {updateFormVisibility[todo._id] && (
                 <form>
                   <input type="text" onChange={(e) => setTitle(e.target.value)} />
                   <label>completed &nbsp;
