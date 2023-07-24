@@ -109,10 +109,10 @@ function App() {
       <main className='container'>
         <form>
           <label>todo</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input type="text" onChange={(e) => setTitle(e.target.value)} />
           <label>
             completed &nbsp;
-            <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
+            <input type="checkbox" onChange={(e) => setCompleted(e.target.checked)} />
           </label>
           <input type="submit" value="submit" onClick={(e) => {
             e.preventDefault()
@@ -139,9 +139,9 @@ function App() {
 
               {todo.showForm && (
                 <form>
-                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <input type="text" onChange={(e) => setTitle(e.target.value)} />
                   <label>completed &nbsp;
-                    <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
+                    <input type="checkbox" onChange={(e) => setCompleted(e.target.checked)} />
                   </label>
                   <input type="submit" value="update" onClick={(e) => {
                     e.preventDefault()
