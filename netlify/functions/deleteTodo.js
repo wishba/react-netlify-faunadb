@@ -1,13 +1,15 @@
 const { default: fetch } = require("node-fetch")
 
 exports.handler = async (event, context) => {
-  const { id } = JSON.parse(event.body)
+  const { todoId } = JSON.parse(event.body)
 
   const query = `
     mutation DeleteTodo {
       deleteTodo(
-        id: "${id}"
+        id: "${todoId}"
       ) {
+        _id
+        timeStamp
         userId
         title
         completed

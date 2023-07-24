@@ -1,20 +1,24 @@
 const { default: fetch } = require("node-fetch")
 
 exports.handler = async (event, context) => {
-  const { userId } = JSON.parse(event.body)
+  const { todoId, timeStamp, userId, title, completed } = JSON.parse(event.body)
 
   const query = `
-    query FindAllTodosById {
-      allTodosById (
-        userId: "${userId}"
-      ) {
-        data {
-          _id
-          timeStamp
-          userId
-          title
-          completed
+    mutation UpdateTodo {
+      updateTodo(
+        id: "${todoId}"
+        data: {
+          timeStamp: "${timeStamp}"
+          userId: "${userId}"
+          title: "${title}"
+          completed: ${completed}
         }
+      ) {
+        _id
+        timeStamp
+        userId
+        title
+        completed
       }
     }
   `
@@ -28,7 +32,7 @@ exports.handler = async (event, context) => {
   if (!response.ok) {
     return {
       statusCode: response.status,
-      body: 'Failed to read all todo items.',
+      body: 'Failed to update a todo item.',
     }
   }
 
